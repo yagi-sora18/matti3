@@ -131,10 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AppMain.cpp" />
-    <ClCompile Include="ソース.cpp" />
+    <ClCompile Include="sourcecode\AppMain.cpp" />
+    <ClCompile Include="sourcecode\TitleScene.cpp" />
+    <ClCompile Include="sourcecode\ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\TitleScene.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

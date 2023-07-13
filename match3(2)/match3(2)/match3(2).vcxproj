@@ -132,10 +132,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sourcecode\AppMain.cpp" />
+    <ClCompile Include="sourcecode\Stage.cpp" />
     <ClCompile Include="sourcecode\TitleScene.cpp" />
     <ClCompile Include="sourcecode\ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\SceneManager.h" />
+    <ClInclude Include="header\Stage.h" />
     <ClInclude Include="header\TitleScene.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

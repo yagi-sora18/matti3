@@ -137,6 +137,11 @@
     <ClCompile Include="sourcecode\ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\FreamControl.h" />
+    <ClInclude Include="header\GameClearScene.h" />
+    <ClInclude Include="header\GameMainScene.h" />
+    <ClInclude Include="header\GameOverScene.h" />
+    <ClInclude Include="header\InputControl.h" />
     <ClInclude Include="header\SceneManager.h" />
     <ClInclude Include="header\Stage.h" />
     <ClInclude Include="header\TitleScene.h" />

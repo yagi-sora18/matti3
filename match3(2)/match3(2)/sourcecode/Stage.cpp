@@ -686,7 +686,7 @@ int combo_check(int y, int x)
 
 ***************************/
 
-void combo_check_h(int y,int x,int*cnt,int*col)
+void combo_check_h(int y, int x, int* cnt, int* col)
 {
 	int Color = 0;
 	//対象のブロックが外枠の場合はreturnで処理を抜ける
@@ -696,7 +696,7 @@ void combo_check_h(int y,int x,int*cnt,int*col)
 		return;
 	}
 	*col = Block[y][x].image;
-	Color = Block[y][x].image;
+	Color = Block[y][x].image;      //色取得
 	Block[y][x].image = 0;
 	(*cnt)++;
 
@@ -704,14 +704,61 @@ void combo_check_h(int y,int x,int*cnt,int*col)
 	{
 		combo_check_h(y + 1, x, cnt, col);
 	}
-
-
-
-
-
-
-
+	if (Block[y][x - 1].image == Color)
+	{
+		combo_check_w(y, x - 1, cnt, col);
+	}
 }
+
+/**************************
+
+*ステージ制御機能:ブロック情報の保存処理
+
+* 引　数:なし
+
+*戻り値:なし
+
+***************************/
+
+void save_block(void)
+{
+	int i, j;
+
+	for (i = 0; i < HEIGHT; i++)
+	{
+		for (j = 0; j < HEIGHT; j++)
+		{
+			Block[i][j].backup = Block[i][j].image;
+		}
+	}
+}
+
+/**************************
+
+*ステージ制御機能:ブロック情報を戻す処理
+
+* 引　数:なし
+
+*戻り値:なし
+
+***************************/
+
+void restore_block(void)
+{
+	int i, j;
+
+	for (i = 0; i < HEIGHT; i++)
+	{
+		for (j = 0; j < WIDTH; j++)
+		{
+			Block[i][j].image = Block[i][j].backup;
+		}
+	}
+}
+
+
+
+
 
 
 

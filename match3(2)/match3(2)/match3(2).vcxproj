@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sourcecode\AppMain.cpp" />
+    <ClCompile Include="sourcecode\SceneManager.cpp" />
     <ClCompile Include="sourcecode\Stage.cpp" />
     <ClCompile Include="sourcecode\TitleScene.cpp" />
     <ClCompile Include="sourcecode\ソース.cpp" />

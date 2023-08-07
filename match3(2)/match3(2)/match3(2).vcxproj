@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sourcecode\AppMain.cpp" />
+    <ClCompile Include="sourcecode\GameClearScene.cpp" />
     <ClCompile Include="sourcecode\GameMainScene.cpp" />
     <ClCompile Include="sourcecode\GameOverScene.cpp" />
     <ClCompile Include="sourcecode\InputControl.cpp" />

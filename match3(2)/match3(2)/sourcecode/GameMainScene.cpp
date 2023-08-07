@@ -93,6 +93,107 @@ int GameMainScene_Initialize(void)
 	return ret;
 }
 
+/************************************
+
+*ゲームメイン画像:更新処理
+
+*引　数:なし
+
+*戻り値:なし
+
+*************************************/
+
+void GameMainScene_Update(void)
+{
+	case 0:
+		SelectBlock();           //ブロックを選択する。
+		break;
+
+	case 2:
+		MoveBlock();           //ブロックを移動させる。
+		break;
+
+	case 3:
+		CheckBlock();           //ブロックの確認
+		break;
+
+	case 4:
+		CheckClear();           //クリアチェック
+		break;
+
+	default:
+		           
+		break;
+
+}
+
+//制限時間の更新
+GameTime--;
+
+//制限時間がなくなったら、ゲームオーバーに
+if (GameTime < 0)
+{
+	Change_Scene(E_GAME_OVER);
+}
+
+//ミッションを達成したら、ゲームクリアに
+if (Get_StageClearFlag())
+{
+	Change_Scene(E_GAME_CLEAR);
+}
+
+}
+
+/************************************
+
+*ゲームメイン画像:描画処理
+
+*引　数:なし
+
+*戻り値:なし
+
+*************************************/
+
+void GameMainScene_Draw(void)
+{
+	int PosX = 600;
+	int tmp_level = GameLevel;
+	int tmp_score = Get_StageScore();
+
+
+	//ステージを描画
+	StageDraw();
+
+
+	//フェードアウト状態か？
+	if (Get_StageState() == 1)
+	{
+		FadeOutBlock();      //フェードアウトする。
+	}
+
+
+	//レベルを描画
+	do {
+		DrawRotaGraph(PosX, 80, 0.5f, 0, NumberImage[tmp_level % 10], TRUE);
+		tmp_level /= 10;
+		PosX -= 30;
+	} while (tmp_level > 0);
+
+
+
+	//スコアの描画
+	PosX = 620;
+	do {
+		DrawRotaGraph(PosX, 160, 0.3f, 0, NumberImage[tmp_level % 10],
+			TRUE);
+		tmp_level /= 10;
+		PosX -= 20;
+	} while (tmp_level > 0);
+
+
+	//制限時間の描画
+	DrawBox(491, 469, 509, 469 - GameTime / 60 * 2, 0x0033ff, TRUE);
+}
 
 
 

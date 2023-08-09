@@ -1,4 +1,4 @@
-#include"GameClearScene"
+#include"GameClearScene.h"
 #include"DxLib.h"
 #include"SceneManager.h"
 
@@ -62,7 +62,7 @@ int GameClearScene_Initialize(void)
 	}
 	if (GameClearSE == -1)
 	{
-		ret = -1
+		ret = -1;
 	}
 
 

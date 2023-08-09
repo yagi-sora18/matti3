@@ -7,8 +7,11 @@
 ***********************************/
 
 #include"DxLib.h"
+
 #include"FreamControl.h"
+
 #include"InputControl.h"
+
 #include"SceneManager.h"
 
 /**********************************
@@ -29,11 +32,13 @@
 
 ***********************************/
 
+
 /**********************************
 
 * グローバル変数定義
 
 ***********************************/
+
 
 /**********************************
 
@@ -41,13 +46,14 @@
 
 ***********************************/
 
+
 /**********************************
 
 * プログラムの開始
 
 ***********************************/
 
-int WINAPI WinMain(_In_HINSTANCE hInstance, _In_opt_HINTANCE hPrevInstance,
+int WINAPI WinMain(_In_HINSTANCE hInstance, _In_opt_HINSTANCE hPrevInstance,
 	_In_LPSTR lpCmdLine, _In_int nShowCmd)
 
 {
@@ -69,6 +75,8 @@ int WINAPI WinMain(_In_HINSTANCE hInstance, _In_opt_HINTANCE hPrevInstance,
 
 	Input_Initialize();                      //入力制御機能
 
+
+
 	//シーンマネージャー初期化処理
 	//エラーが発生したら、終了する
 	if (SceneManager_Initialize(E_TITLE) == D_ERROR)
@@ -88,7 +96,7 @@ int WINAPI WinMain(_In_HINSTANCE hInstance, _In_opt_HINTANCE hPrevInstance,
 	while (ProcessMessage() != D_ERROR && Input_Escape() == FALSE)
 	{
 		//入力制御機能更新
-		Input_Updata();
+		Input_Update();
 
 		//シーンマネージャー更新処理
 		SceneManager_Update();

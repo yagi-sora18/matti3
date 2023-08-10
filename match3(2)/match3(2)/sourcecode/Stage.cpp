@@ -1,6 +1,6 @@
-#include"Stage.h"
+#include"../header/Stage.h"
 #include"DxLib.h"
-#include"InputControl.h"
+#include"../header/InputControl.h"
 
 /************************
 
@@ -220,7 +220,7 @@ void CreateBlock(void)
 
 
 	do
-
+		
 	{
 		Check = 0;
 		for (i = 0; i < HEIGHT; i++)
@@ -229,7 +229,7 @@ void CreateBlock(void)
 			{
 				if (j == 0 || j == WIDTH - 1 || i == HEIGHT - 1 || i == 0)
 				{
-					Block[i][j].flg = FLASE;
+					Block[i][j].flg = FALSE;
 					Block[i][j].image = NULL;
 				}
 				else
@@ -258,7 +258,7 @@ void CreateBlock(void)
 }*/
 
 //ブロック連鎖チェック
-		for (i = 1; i, HEIGTH - 1; i++)
+		for (i = 1; i < HEIGHT - 1; i++)
 		{
 			for (j = 1; j < WIDTH - 1; i++)
 			{
@@ -297,7 +297,7 @@ void SelectBlock(void)
 	//選択ブロックの範囲を制御
 	if (Select[SELECT_CURSOR].x < 0)
 	{
-		Select[SLECT_CURSOR].x = 0;
+		Select[SELECT_CURSOR].x = 0;
 	}
 	if (Select[SELECT_CURSOR].x > WIDTH - 3)
 	{
@@ -309,7 +309,7 @@ void SelectBlock(void)
 	}
 	if (Select[SELECT_CURSOR].y > HEIGHT - 3)
 	{
-		Select[SELECT_CURSOR].y = HEIGHT - 3
+		Select[SELECT_CURSOR].y = HEIGHT - 3;
 	}
 
 	//クリックでブロックを選択
@@ -331,7 +331,7 @@ void SelectBlock(void)
 					== 0)) ||
 				(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x)
 					== 0 &&
-					(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) ==
+					abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) ==
 						1)))
 		{
 			Select[TMP_CURSOR].x = Select[SELECT_CURSOR].x;
@@ -625,7 +625,7 @@ void Set_StageMission(int mission)
 
 ***************************/
 
-int combo_check(int y, int x)
+int combo_check(int y,int x)
 {
 	int ret = FALSE;
 
@@ -659,7 +659,7 @@ int combo_check(int y, int x)
 		}
 		if (CountW >= 3)
 		{
-			Item[Color - 1] += CountW;
+			Item[ColorW - 1] += CountW;
 			Stage_Score += CountW * 10;
 		}
 		ret = TRUE;

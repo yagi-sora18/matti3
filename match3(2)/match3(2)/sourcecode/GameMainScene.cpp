@@ -1,7 +1,7 @@
-#include"GameMainScene.h"
+#include"../header/GameMainScene.h"
 #include"DxLib.h"
-#include"Stage.h"
-#include"SceneManager.h"
+#include"../header/Stage.h"
+#include"../header/SceneManager.h"
 
 /************************************
 
@@ -104,6 +104,8 @@ int GameMainScene_Initialize(void)
 *************************************/
 
 void GameMainScene_Update(void)
+{
+	switch(Get_StageState())
 {
 	case 0:
 		SelectBlock();           //ブロックを選択する。

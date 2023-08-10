@@ -1,8 +1,8 @@
-#include"SceneManager.h"
-#include"TitleScene.h"
-#include"GameMainScene.h"
-#include"GameClearScene.h"
-#include"GameOverScene.h"
+#include"../header/SceneManager.h"
+#include"../header/TitleScene.h"
+#include"../header/GameMainScene.h"
+#include"../header/GameClearScene.h"
+#include"../header/GameOverScene.h"
 
 /************************************
 
@@ -54,18 +54,18 @@ int SceneManager_Initialize(GAME_MODE mode)
 	{
 		return D_ERROR;
 	}
-}
+
 
 //ゲームメイン画面
 Read_Error = GameMainScene_Initialize();
-if (Read_Error == D_ERROR)
+if(Read_Error == D_ERROR)
 {
 	return D_ERROR;
 }
 
 //ゲームクリア画面
 Read_Error == GameClearScene_Initialize();
-if (Read_Error == D_ERROR)
+if(Read_Error == D_ERROR)
 {
 	return D_ERROR;
 }
@@ -117,7 +117,7 @@ void SceneManager_Update(void)
 	case E_GAME_CLEAR:
 		GameClearScene_Update();
 		break;
-	case E_GAME_CLEAR:
+	case E_GAME_OVER:
 		GameClearScene_Update();
 		break;
 	default:
@@ -141,7 +141,7 @@ void SceneManager_Draw(void)
 	switch (Game_Mode)
 
 	{
-		case E_TITLE;
+	case E_TITLE:
 			TitleScene_Draw();
 			break;
 		case E_GAME_CLEAR:

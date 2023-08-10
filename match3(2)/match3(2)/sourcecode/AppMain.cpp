@@ -8,11 +8,11 @@
 
 #include"DxLib.h"
 
-#include"FreamControl.h"
+#include"../header/FreamControl.h"
 
-#include"InputControl.h"
+#include"../header/InputControl.h"
 
-#include"SceneManager.h"
+#include"../header/SceneManager.h"
 
 /**********************************
 

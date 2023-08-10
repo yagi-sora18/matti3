@@ -1,5 +1,5 @@
 #include"DxLib.h"
-#include"InputControl.h"
+#include"../header/InputControl.h"
 
 /*****************************
 

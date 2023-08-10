@@ -1,6 +1,6 @@
-#include"GameClearScene.h"
+#include"../header/GameClearScene.h"
 #include"DxLib.h"
-#include"SceneManager.h"
+#include"../header/SceneManager.h"
 
 /**************************************
 

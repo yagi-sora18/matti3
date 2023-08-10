@@ -1,4 +1,4 @@
-#include"FreamControl.h"
+#include"../header/FreamControl.h"
 #include"DxLib.h"
 /****************************************
 

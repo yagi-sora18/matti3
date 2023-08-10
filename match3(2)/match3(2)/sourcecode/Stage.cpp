@@ -650,7 +650,7 @@ int combo_check(int y,int x)
 	}
 
 	//3‚ÂˆÈã•À‚ñ‚Å‚¢‚é‚©H
-	if ((CountH >= 3 || CountW >= 3))
+	if (CountH >= 3 || CountW >= 3)
 	{
 		if (CountH >= 3)
 		{

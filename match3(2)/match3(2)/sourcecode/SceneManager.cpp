@@ -144,6 +144,9 @@ void SceneManager_Draw(void)
 	case E_TITLE:
 			TitleScene_Draw();
 			break;
+	case E_GAMEMAIN:
+		GameMainScene_Draw();
+		break;
 		case E_GAME_CLEAR:
 			GameClearScene_Draw();
 			break;

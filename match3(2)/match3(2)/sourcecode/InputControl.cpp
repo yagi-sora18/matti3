@@ -83,7 +83,7 @@ int Input_Escape(void)
 		ret = TRUE;
 
 	}
-
+	return ret;
 }
 
 /*****************************

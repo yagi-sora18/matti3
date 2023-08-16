@@ -31,7 +31,7 @@ typedef struct
 	int flg;
 	int x, y;
 	int width, height;
-	int iamge;
+	int image;
 	int backup;
 }T_Object;
 
@@ -84,7 +84,7 @@ int MoveBlockSE;                    //ブロック移動SE
 int combo_check(int x, int y);
 void combo_check_h(int y, int x, int* cnt, int* col);
 void combo_check_w(int y, int x, int* cnt, int* col);
-void save_Block(void);
+void save_block(void);
 void restore_block(void);
 
 
@@ -105,16 +105,16 @@ int StageInitialize(void)
 
 	//画像読み込み
 	LoadDivGraph("images/block.png", BLOCK_IMAGE_MAX, BLOCK_IMAGE_MAX, 1, BLOCKSIZE, BLOCKSIZE, BlockImage);
-
+	StageImage = LoadGraph("images/stage.png");
 
 	//音源読み込み
 	ClickSE = LoadSoundMem("sounds/click_se.mp3");
 	FadeOutSE = LoadSoundMem("sounds/fadeout_se.mp3");
 	MoveBlockSE = LoadSoundMem("sounds/moveblock_se.mp3");
+	
 
 	//ブロック生成処理
 	CreateBlock();
-
 
 	ClickStatus = E_NONE;
 	Stage_State = 0;
@@ -260,7 +260,7 @@ void CreateBlock(void)
 //ブロック連鎖チェック
 		for (i = 1; i < HEIGHT - 1; i++)
 		{
-			for (j = 1; j < WIDTH - 1; i++)
+			for (j = 1; j < WIDTH - 1; j++)
 			{
 				Check += combo_check(i, j);
 			}
@@ -343,12 +343,10 @@ void SelectBlock(void)
 	//選択ブロックを交換する
 	if (ClickStatus == E_SECOND)
 	{
-		TmpBlock = Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x +
-			1].image;
-		Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image =
-			Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
-		Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image =
-			TmpBlock;
+		TmpBlock = Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image;
+		Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image = Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
+		Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image = TmpBlock;
+		
 
 		//連鎖が３つ以上か調べる。
 		Result = 0;
@@ -361,12 +359,9 @@ void SelectBlock(void)
 		if (Result == 0)
 		{
 
-			int TmpBlock = Block[Select[NEXT_CURSOR].y +
-				1][Select[NEXT_CURSOR].x + 1].image;
-			Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x +
-				1].image = Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
-			Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x +
-				1].image = TmpBlock;
+			int TmpBlock = Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image;
+			Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image = Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
+			Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image = TmpBlock;
 		}
 		else
 		{
@@ -450,7 +445,7 @@ void MoveBlock(void)
 	//↓へ移動する処理
 	for (i = 1; i < WIDTH - 1; i++)
 	{
-		for (j = 1; j < WIDTH - 1; i++)
+		for (j = 1; j < WIDTH - 1; j++)
 		{
 			if (Block[i][j].image == 0)
 			{
@@ -498,22 +493,24 @@ void CheckBlock(void)
 	//ブロック連鎖チェック
 	for (i = 1; i < HEIGHT - 1; i++)
 	{
-		Result += combo_check(i, j);
+		for(j = 1; j < WIDTH - 1; j++)
+		{
+			Result += combo_check(i, j);
+		}
 	}
-}
 
-//連鎖がなくなればブロック選択へ
-//そうでなければブロック移動へ移行して連鎖チェックを継続する
-if(Result == 0)
-{
-	//クリアチェック処理へ移行する。
-	Stage_State = 4;
-}
-else
-{
-	//連鎖が３つ以上ならブロックを消しブロック移動処理へ移行する
-	Stage_State = 1;
- }
+	//連鎖がなくなればブロック選択へ
+	//そうでなければブロック移動へ移行して連鎖チェックを継続する
+	if(Result == 0)
+	{
+		//クリアチェック処理へ移行する。
+		Stage_State = 4;
+	}
+	else
+	{
+		//連鎖が３つ以上ならブロックを消しブロック移動処理へ移行する
+		Stage_State = 1;
+	}
 }
 
 
@@ -633,7 +630,7 @@ int combo_check(int y,int x)
 	int CountH = 0;
 	int ColorH = 0;
 	save_block();
-	combo_check_h(y, x & CountH, &ColorH);
+	combo_check_h(y, x ,& CountH, &ColorH);
 	if (CountH < 3)
 	{
 		restore_block();      //3個未満なら戻す
@@ -669,6 +666,7 @@ int combo_check(int y,int x)
 	return ret;
 }
 
+
 /**************************
 
 *ステージ制御機能:連鎖チェック処理（縦方向）
@@ -697,9 +695,43 @@ void combo_check_h(int y, int x, int* cnt, int* col)
 	{
 		combo_check_h(y + 1, x, cnt, col);
 	}
+	if (Block[y - 1][x].image == Color)
+	{
+		combo_check_h(y - 1, x, cnt, col);
+	}
+}
+
+/**************************
+
+*ステージ制御機能:連鎖チェック処理（縦方向）
+
+* 引　数:なし
+
+*戻り値:連鎖有無（0:無し　　1:有り)
+
+***************************/
+
+void combo_check_w(int y, int x, int* cnt, int* col)
+{
+	int Color = 0;
+	//対象のブロックが外枠の場合はreturnで処理を抜ける
+
+	if (Block[y][x].image == 0)
+	{
+		return;
+	}
+	*col = Block[y][x].image;
+	Color = Block[y][x].image;      //色取得
+	Block[y][x].image = 0;
+	(*cnt)++;
+
+	if (Block[y][x + 1].image == Color)
+	{
+		combo_check_h(y,x + 1, cnt, col);
+	}
 	if (Block[y][x - 1].image == Color)
 	{
-		combo_check_w(y, x - 1, cnt, col);
+		combo_check_w(y,x - 1, cnt, col);
 	}
 }
 
@@ -719,7 +751,7 @@ void save_block(void)
 
 	for (i = 0; i < HEIGHT; i++)
 	{
-		for (j = 0; j < HEIGHT; j++)
+		for (j = 0; j < WIDTH; j++)
 		{
 			Block[i][j].backup = Block[i][j].image;
 		}
@@ -752,8 +784,10 @@ void restore_block(void)
 
 
 
-
-
+int a(void)
+{
+	return -1;
+}
 
 
 

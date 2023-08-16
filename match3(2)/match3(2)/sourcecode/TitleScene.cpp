@@ -74,7 +74,7 @@ int TitleScene_Initialize(void)
 
 ********************************/
 
-void TitleScne_Update(void)
+void TitleScene_Update(void)
 {
 	//ƒ^ƒCƒgƒ‹BGM
 	if (CheckSoundMem(TitleBGM) == 0)

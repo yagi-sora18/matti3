@@ -82,7 +82,9 @@ int GameMainScene_Initialize(void)
 		Set_StageMission(3);    //ミッションの初期化
 		GameCount++;            //次回の設定
 	}
+
 	else
+
 	{
 		GameLevel++;          //ゲームレベルの更新
 		Set_StageMission(3);  //ミッションを増やす
@@ -186,11 +188,11 @@ void GameMainScene_Draw(void)
 	//スコアの描画
 	PosX = 620;
 	do {
-		DrawRotaGraph(PosX, 160, 0.3f, 0, NumberImage[tmp_level % 10],
+		DrawRotaGraph(PosX, 160, 0.3f, 0, NumberImage[tmp_score % 10],
 			TRUE);
-		tmp_level /= 10;
+		tmp_score /= 10;
 		PosX -= 20;
-	} while (tmp_level > 0);
+	} while (tmp_score > 0);
 
 
 	//制限時間の描画

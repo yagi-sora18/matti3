@@ -142,6 +142,10 @@ int StageInitialize(void)
 	{
 		ret = -1;
 	}
+	if (ClickSE == -1)
+	{
+		ret = -1;
+	}
 	if (FadeOutSE == -1)
 	{
 		ret = -1;
@@ -188,12 +192,10 @@ void StageDraw(void) {
 	}
 
 	//選択ブロックを描画
-	DrawGraph(Select[SELECT_CURSOR].x * BLOCKSIZE, Select[SELECT_CURSOR].y *
-		BLOCKSIZE, BlockImage[9], TRUE);
+	DrawGraph(Select[SELECT_CURSOR].x * BLOCKSIZE, Select[SELECT_CURSOR].y * BLOCKSIZE, BlockImage[9], TRUE);
 	if (ClickStatus != E_NONE)
 	{
-		DrawGraph(Select[NEXT_CURSOR].x * BLOCKSIZE, Select[NEXT_CURSOR].y *
-			BLOCKSIZE, BlockImage[9], TRUE);
+		DrawGraph(Select[NEXT_CURSOR].x * BLOCKSIZE, Select[NEXT_CURSOR].y * BLOCKSIZE, BlockImage[9], TRUE);
 	}
 
 	//ミッションを描画
@@ -201,6 +203,8 @@ void StageDraw(void) {
 	DrawFormatString(590, 211, GetColor(255, 255, 255), "%3d", Stage_Mission);
 
 }
+
+
 
 
 /*******************************************
@@ -325,14 +329,10 @@ void SelectBlock(void)
 			ClickStatus = E_ONCE;
 		}
 		else if (ClickStatus == E_ONCE &&
-			((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x)
-				== 1 &&
-				(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y)
-					== 0)) ||
-				(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x)
-					== 0 &&
-					abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) ==
-						1)))
+			((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) == 1 &&
+				(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 0)) ||
+				(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) == 0 &&
+					abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 1)))
 		{
 			Select[TMP_CURSOR].x = Select[SELECT_CURSOR].x;
 				Select[TMP_CURSOR].y = Select[SELECT_CURSOR].y;
@@ -350,10 +350,8 @@ void SelectBlock(void)
 
 		//連鎖が３つ以上か調べる。
 		Result = 0;
-		Result += combo_check(Select[NEXT_CURSOR].y + 1,
-			Select[NEXT_CURSOR].x + 1);
-		Result += combo_check(Select[TMP_CURSOR].y + 1,
-			Select[TMP_CURSOR].x + 1);
+		Result += combo_check(Select[NEXT_CURSOR].y + 1,Select[NEXT_CURSOR].x + 1);
+		Result += combo_check(Select[TMP_CURSOR].y + 1,Select[TMP_CURSOR].x + 1);
 
 		//連鎖が３未満なら選択ブロックを元に戻す
 		if (Result == 0)
@@ -687,7 +685,7 @@ void combo_check_h(int y, int x, int* cnt, int* col)
 		return;
 	}
 	*col = Block[y][x].image;
-	Color = Block[y][x].image;      //色取得
+	Color = Block[y][x].image;
 	Block[y][x].image = 0;
 	(*cnt)++;
 
@@ -727,7 +725,7 @@ void combo_check_w(int y, int x, int* cnt, int* col)
 
 	if (Block[y][x + 1].image == Color)
 	{
-		combo_check_h(y,x + 1, cnt, col);
+		combo_check_w(y,x + 1, cnt, col);
 	}
 	if (Block[y][x - 1].image == Color)
 	{
@@ -784,10 +782,7 @@ void restore_block(void)
 
 
 
-int a(void)
-{
-	return -1;
-}
+
 
 
 

@@ -86,6 +86,7 @@ int GameMainScene_Initialize(void)
 	else
 
 	{
+		if(GameLevel )
 		GameLevel++;          //ゲームレベルの更新
 		Set_StageMission(3);  //ミッションを増やす
 	}
@@ -94,6 +95,8 @@ int GameMainScene_Initialize(void)
 
 	return ret;
 }
+
+
 
 /************************************
 

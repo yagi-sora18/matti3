@@ -62,7 +62,7 @@ int GameMainScene_Initialize(void)
 
 	//ステージ機能初期化
 	ret = StageInitialize();
-	
+
 
 	//エラーチェック
 	for (i = 0; i < NUMBER_IMAGE_MAX; i++)
@@ -75,27 +75,30 @@ int GameMainScene_Initialize(void)
 	}
 
 	//ゲームプレイが初回かどうか？
+
 	if (GameCount == 0)
+
 	{
 		GameScore = 0;          //スコアの初期化
 		GameLevel = 1;          //ゲームレベルの初期化
 		Set_StageMission(3);    //ミッションの初期化
-		GameCount++;            //次回の設定
+		GameCount++;            //次回の設定	
 	}
 
 	else
 
 	{
-		if(GameLevel )
-		GameLevel++;          //ゲームレベルの更新
-		Set_StageMission(3);  //ミッションを増やす
+		GameCount++;
+		if (GameCount / 2 != 0) {
+			GameLevel++;//ゲームレベルの更新
+			Set_StageMission(3);  //ミッションを増やす
+
+		}
+		GameTime = TIMELIMIT;     //制限時間の初期化
+
+		return ret;
 	}
-	GameTime = TIMELIMIT;     //制限時間の初期化
-
-
-	return ret;
 }
-
 
 
 /************************************
